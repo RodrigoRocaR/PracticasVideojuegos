@@ -26,6 +26,7 @@ def dibujar_columnas_bajas_fondo():
 arcade.open_window(800, 600, "First draw")  # width, height
 arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
 arcade.start_render()
+
 arcade.draw_lrtb_rectangle_filled(0, 800, 100, 0, arcade.color.DARK_BLUE_GRAY)  # suelo
 arcade.draw_lrtb_rectangle_filled(0, 800, 600, 550, arcade.color.DARK_BLUE_GRAY)  # techo
 # Irregularidades
@@ -36,6 +37,8 @@ arcade.draw_triangle_filled(650, 100, 800, 100, 800, 25, arcade.color.DARK_MIDNI
 # Decoracion
 arcade.draw_triangle_filled(525, 550, 575, 550, 550, 400, arcade.color.ICEBERG)  # tempano de hielo
 arcade.draw_triangle_filled(525, 550, 535, 550, 550, 400, arcade.color.WHITE)
+arcade.draw_triangle_filled(300, 550, 350, 550, 325, 400, arcade.color.ICEBERG)  # tempano de hielo 2
+arcade.draw_triangle_filled(300, 550, 310, 550, 325, 400, arcade.color.WHITE)
 # Detalles
 dibujar_brillitos_fondo()
 dibujar_columnas_altas_fondo()
