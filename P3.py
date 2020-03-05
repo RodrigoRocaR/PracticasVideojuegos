@@ -1,5 +1,8 @@
 import arcade
 
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
 
 def dibujar_brillitos_fondo():
     coord_x = [100, 125, 300, 350, 200, 250, 325, 600, 675, 750]
@@ -22,11 +25,16 @@ def dibujar_columnas_bajas_fondo():
         arcade.draw_circle_filled(i + 12.5, 250, 12.5, arcade.color.COOL_BLACK)
 
 
-def dibujar_tempanos_de_hielo():
-    arcade.draw_triangle_filled(525, 550, 575, 550, 550, 400, arcade.color.ICEBERG)  # tempano de hielo
-    arcade.draw_triangle_filled(525, 550, 535, 550, 550, 400, arcade.color.WHITE)
-    arcade.draw_triangle_filled(300, 550, 350, 550, 325, 400, arcade.color.ICEBERG)  # tempano de hielo 2
-    arcade.draw_triangle_filled(300, 550, 310, 550, 325, 400, arcade.color.WHITE)
+def dibujar_tempanos_de_hielo(y):
+    if y > -300:  # choca contra el suelo (de 550 a 100)
+        arcade.draw_triangle_filled(525, 550 + y, 575, 550 + y, 550, 400 + y, arcade.color.ICEBERG)  # tempano de hielo
+        arcade.draw_triangle_filled(525, 550 + y, 535, 550 + y, 550, 400 + y, arcade.color.WHITE)
+    else:
+        arcade.draw_triangle_filled(525, 100, 525, 150, 675, 125, arcade.color.ICEBERG)
+        arcade.draw_triangle_filled(525, 100, 525, 115, 675, 125, arcade.color.WHITE)
+
+    # arcade.draw_triangle_filled(300, 550, 350, 550, 325, 400, arcade.color.ICEBERG)  # tempano de hielo 2
+    # arcade.draw_triangle_filled(300, 550, 310, 550, 325, 400, arcade.color.WHITE)
 
 
 def dibujar_suelo_y_techo():
@@ -41,16 +49,21 @@ def dibujar_suelo_y_techo():
 
 def on_draw(delta_time):
     """dibujamos all"""
+    global caida_tempano_hielo
     arcade.start_render()
     dibujar_suelo_y_techo()
     dibujar_brillitos_fondo()
-    dibujar_tempanos_de_hielo()
+    dibujar_tempanos_de_hielo(caida_tempano_hielo)
     dibujar_columnas_altas_fondo()
     dibujar_columnas_bajas_fondo()
+    caida_tempano_hielo -= 5
+
+
+caida_tempano_hielo = 0
 
 
 def main():
-    arcade.open_window(800, 600, "Second draw")  # width, height
+    arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Second draw")
     arcade.set_background_color(arcade.color.DARK_MIDNIGHT_BLUE)
     arcade.schedule(on_draw, 1 / 60)
     arcade.run()
