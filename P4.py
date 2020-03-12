@@ -21,7 +21,6 @@ def main():
     sed = 0
     cansancio_camello = 0
     kilometros_recorridos_de_los_nativos = -20
-    distancia_nativos = -20
     numero_cantimploras = 3
 
     while not done:
@@ -34,7 +33,8 @@ def main():
         elif respuesta == "E":
             print("Status: \n""Kilometros recorridos: ", kilometros_recorridos, "\n""Cantimploras: ",
                   numero_cantimploras,
-                  "\n""Los nativos están a {} kilometros detrás de ti".format(kilometros_recorridos_de_los_nativos))
+                  "\n""Los nativos están a {} kilometros detrás de ti".format(
+                      abs(kilometros_recorridos_de_los_nativos)))
         elif respuesta == "D":
             print("El camello se siente aliviado y te escupe")
             cansancio_camello = 0
@@ -57,33 +57,33 @@ def main():
             if numero_cantimploras == 0:
                 print("No tienes cantimploras")
             else:
-                print("Bebes de tu sucia cantimplora saboreando hasta la última gota: ")
+                print("Bebes de tu sucia cantimplora saboreando hasta la última gota ")
                 numero_cantimploras -= 1
                 sed = 0
         else:
             print("Eso no es una opción válida, mete una maldita letra del menú")
         if not done:
             if 4 <= sed < 6:
-                print("Estás sediento...")
-            elif sed >= 6:
-                print("Has muerto de sed!!")
+                print("\nEstás sediento...\n")
+            if sed >= 6:
+                print("\nHas muerto de sed!!\n")
                 done = True
         if not done:
             if 5 <= cansancio_camello < 8:
-                print("El camello se está cansando...")
+                print("\nEl camello se está cansando...\n")
             elif cansancio_camello >= 8:
-                print("El camello se ha muerto")
+                print("\nEl camello se ha muerto\n")
                 done = True
         if not done:
-            distancia_nativos = kilometros_recorridos - kilometros_recorridos_de_los_nativos
-            if distancia_nativos >= 0:
-                print("Los nativos te han pillado!!")
+            if kilometros_recorridos <= kilometros_recorridos_de_los_nativos:
+                print("\nLos nativos te han pillado!!\n")
                 done = True
-            elif -15 <= distancia_nativos < 0:
-                print("Los nativos te pisan los talones!!")
+            elif -15 <= kilometros_recorridos - abs(kilometros_recorridos_de_los_nativos) < 0:
+                print("\nLos nativos te pisan los talones!!\n")
         if not done:
             if kilometros_recorridos >= 200:
                 print("Enhorabuena, has escapado :D!!!")
+                done = True
 
 
 main()
