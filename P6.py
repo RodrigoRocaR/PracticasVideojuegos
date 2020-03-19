@@ -70,6 +70,7 @@ class Murcielago:
         if self.centro_x < 2 * self.width:
             self.centro_x = 2 * self.width
             arcade.play_sound(self.choque)
+        # lo de arriba se puede hacer tambien: self.choque.play(0.01) (asi podemos cambiar el volumen y bajrlo al 1%)
         elif self.centro_x > SCREEN_WIDTH - 2 * self.width:
             self.centro_x = SCREEN_WIDTH - 2 * self.width
             arcade.play_sound(self.choque)
