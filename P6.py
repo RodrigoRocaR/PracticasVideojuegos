@@ -3,7 +3,7 @@ import arcade
 # --- Constants ---
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-MOVEMENT_SPEED = 4
+MOVEMENT_SPEED = 5
 
 
 def dibujar_suelo_y_techo():
@@ -57,6 +57,8 @@ class Murcielago:
         self.width = width
         self.cambio_x = cambio_x
         self.cambio_y = cambio_y
+        # Cargamos sonidos
+        self.choque = arcade.Sound("D:\\Audio stuff\\AudiosPrueba\\Choque.wav")
 
     def dibujar(self):
         dibujar_murcielago(self.centro_x, self.centro_y, self.width)
@@ -64,6 +66,19 @@ class Murcielago:
     def update(self):  # Mover murcielago
         self.centro_x += self.cambio_x
         self.centro_y += self.cambio_y
+        # Poner limites para que no se salga de la ventana
+        if self.centro_x < 2 * self.width:
+            self.centro_x = 2 * self.width
+            arcade.play_sound(self.choque)
+        elif self.centro_x > SCREEN_WIDTH - 2 * self.width:
+            self.centro_x = SCREEN_WIDTH - 2 * self.width
+            arcade.play_sound(self.choque)
+        elif self.centro_y < 50:  # 50 = altura murcielago
+            self.centro_y = 50
+            arcade.play_sound(self.choque)
+        elif self.centro_y > SCREEN_HEIGHT - 50:
+            self.centro_y = SCREEN_HEIGHT - 50
+            arcade.play_sound(self.choque)
 
 
 class MyGame(arcade.Window):
@@ -92,22 +107,20 @@ class MyGame(arcade.Window):
     def on_key_press(self, key, modifiers):
         """ Called whenever the user presses a key. """
         if key == arcade.key.LEFT:
-            self.murcielago.change_x = -MOVEMENT_SPEED
+            self.murcielago.cambio_x = -MOVEMENT_SPEED
         elif key == arcade.key.RIGHT:
-            self.murcielago.change_x = MOVEMENT_SPEED
+            self.murcielago.cambio_x = MOVEMENT_SPEED
         elif key == arcade.key.UP:
-            self.murcielago.change_y = MOVEMENT_SPEED
+            self.murcielago.cambio_y = MOVEMENT_SPEED
         elif key == arcade.key.DOWN:
-            self.murcielago.change_y = -MOVEMENT_SPEED
+            self.murcielago.cambio_y = -MOVEMENT_SPEED
 
     def on_key_release(self, key, modifiers):
         """ Called whenever a user releases a key. """
         if key == arcade.key.LEFT or key == arcade.key.RIGHT:
-            self.murcielago.change_x = 0
+            self.murcielago.cambio_x = 0
         elif key == arcade.key.UP or key == arcade.key.DOWN:
-            self.murcielago.change_y = 0
-
-
+            self.murcielago.cambio_y = 0
 
 
 # def on_mouse_motion(self, x, y, dx, dy):
